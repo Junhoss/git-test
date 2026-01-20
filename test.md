@@ -10,19 +10,20 @@ graph TD
     classDef db fill:#bfb,stroke:#333,stroke-width:2px;
 
     subgraph "☀️ Morning Routine (Daily Recommendation)"
-        Cron[📅 Schedule Trigger<br/>(Every 09:00 AM)]:::trigger --> API[⚡ HTTP Request<br/>(Solved.ac API)]
-        API -->|Filter: Silver 3~5| SlackBot[💬 Slack Bot<br/>(Send Interactive Msg)]:::action
+        %% 텍스트에 괄호가 있으므로 ""로 감싸주어야 함
+        Cron["📅 Schedule Trigger<br/>(Every 09:00 AM)"]:::trigger --> API["⚡ HTTP Request<br/>(Solved.ac API)"]
+        API -->|Filter: Silver 3~5| SlackBot["💬 Slack Bot<br/>(Send Interactive Msg)"]:::action
         
         User((User)) -->|Click 'Accept'| Webhook[🪝 Webhook Receiver]:::trigger
         Webhook -->|Switch: Action ID| Logic{Is 'Approve'?}
-        Logic -- Yes --> NotionCreate[📝 Notion: Create Page<br/>(Status: To-Do)]:::db
+        Logic -- Yes --> NotionCreate["📝 Notion: Create Page<br/>(Status: To-Do)"]:::db
     end
 
     subgraph "💻 Solving Routine (Automated Verification)"
-        GitPush[🚀 GitHub Push<br/>(Code Commit)]:::trigger --> GitTrigger[n8n: GitHub Trigger]
-        GitTrigger -->|Filter| CheckCommit{Msg contains<br/>'BaekjoonHub'?}
+        GitPush["🚀 GitHub Push<br/>(Code Commit)"]:::trigger --> GitTrigger[n8n: GitHub Trigger]
+        GitTrigger -->|Filter| CheckCommit{"Msg contains<br/>'BaekjoonHub'?"}
         
-        CheckCommit -- Yes --> Parse[⚙️ Data Parsing<br/>(Title, Level, URL)]
-        Parse -->|Sync| NotionUpdate[🔄 Notion: Update Page<br/>(Status: Done, URL)]:::db
+        CheckCommit -- Yes --> Parse["⚙️ Data Parsing<br/>(Title, Level, URL)"]
+        Parse -->|Sync| NotionUpdate["🔄 Notion: Update Page<br/>(Status: Done, URL)"]:::db
         Parse -->|Notify| SlackDone[🎉 Slack: Success Alert]:::action
     end
