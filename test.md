@@ -9,8 +9,8 @@ graph TD
     classDef action fill:#bbf,stroke:#333,stroke-width:2px;
     classDef db fill:#bfb,stroke:#333,stroke-width:2px;
 
+    %% 1. 아침 루틴
     subgraph "☀️ Morning Routine (Daily Recommendation)"
-        %% 텍스트에 괄호가 있으므로 ""로 감싸주어야 함
         Cron["📅 Schedule Trigger<br/>(Every 09:00 AM)"]:::trigger --> API["⚡ HTTP Request<br/>(Solved.ac API)"]
         API -->|Filter: Silver 3~5| SlackBot["💬 Slack Bot<br/>(Send Interactive Msg)"]:::action
         
@@ -19,6 +19,7 @@ graph TD
         Logic -- Yes --> NotionCreate["📝 Notion: Create Page<br/>(Status: To-Do)"]:::db
     end
 
+    %% 2. 문제 풀이 루틴
     subgraph "💻 Solving Routine (Automated Verification)"
         GitPush["🚀 GitHub Push<br/>(Code Commit)"]:::trigger --> GitTrigger[n8n: GitHub Trigger]
         GitTrigger -->|Filter| CheckCommit{"Msg contains<br/>'BaekjoonHub'?"}
@@ -27,3 +28,6 @@ graph TD
         Parse -->|Sync| NotionUpdate["🔄 Notion: Update Page<br/>(Status: Done, URL)"]:::db
         Parse -->|Notify| SlackDone[🎉 Slack: Success Alert]:::action
     end
+
+    %% [핵심 변경 사항] 투명 연결선(~~~)으로 위아래 배치 강제
+    NotionCreate ~~~ GitPush
