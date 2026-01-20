@@ -1,5 +1,5 @@
 graph TD
-    %% 스타일 정의
+    %% 스타일 정의 (줄바꿈을 해야 아래 코드가 작동합니다)
     classDef trigger fill:#f9f,stroke:#333,stroke-width:2px;
     classDef action fill:#bbf,stroke:#333,stroke-width:2px;
     classDef db fill:#bfb,stroke:#333,stroke-width:2px;
